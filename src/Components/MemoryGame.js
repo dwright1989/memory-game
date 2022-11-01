@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import Header from '../Components/Header';
 import GameBoard from '../Components/GameBoard';
+import Modal from '../Components/Modal';
 import Image1 from "../Images/1.jpg"
 import Image2 from "../Images/2.jpg"
 import Image3 from "../Images/3.jpg"
@@ -40,12 +41,15 @@ function MemoryGame() {
         cards: images
     });
 
+    const [isOpen, setIsOpen] = React.useState(false);
+
 
     function handleCardClick(name){
         let cardObject = game.cards.filter(obj=>{
             return obj.name===name;
         });
         if(cardObject[0].hasBeenClicked){
+            setIsOpen(true);
             resetGame();
         }else{
             const newCards = game.cards.map((card)=>{
@@ -87,6 +91,7 @@ function MemoryGame() {
     <>
       <Header currentScore={game.currentScore} bestScore={game.bestScore}/>
       <GameBoard cards={game.cards} handleCardClick={handleCardClick}/>
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}>Oh No! You've already clicked that card.  GAME OVER.</Modal>
     </>
   );
 }
