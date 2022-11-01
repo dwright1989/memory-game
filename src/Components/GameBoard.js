@@ -1,16 +1,16 @@
 import React from "react";
 import Card from '../Components/Card';
 
-
 export default function GameBoard(props) {
 
-    const cards = props.cards;
-    console.log(cards);
+    const {cards, handleCardClick} = props;
+    
+   
 
    return(
        <div id="gameBoard">
            {cards.map((card)=>(
-                <Card url={card.url} hasBeenClicked="false"/>
+                <Card card={card} key={card.name} hasBeenClicked={card.hasBeenClicked} handleCardClick={handleCardClick}/>
            ))}
        </div>
    );
