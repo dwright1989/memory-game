@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import Header from '../Components/Header';
 import GameBoard from '../Components/GameBoard';
 import Image1 from "../Images/1.jpg"
@@ -42,12 +42,10 @@ function MemoryGame() {
 
 
     function handleCardClick(name){
-        console.log("something has been clicked:  " + name);
         let cardObject = game.cards.filter(obj=>{
             return obj.name===name;
         });
         if(cardObject[0].hasBeenClicked){
-            console.log("the game has ended");
             resetGame();
         }else{
             const newCards = game.cards.map((card)=>{
@@ -75,6 +73,15 @@ function MemoryGame() {
             cards: images
         }))
     }
+
+    useEffect(() =>{
+            let newCardsArray = game.cards;
+            newCardsArray.sort(()=>Math.random()-0.5);
+            setGame(prevGame=>({
+                ...prevGame,
+                cards: newCardsArray
+            }))
+    },[game.currentScore]);
 
   return (
     <>
