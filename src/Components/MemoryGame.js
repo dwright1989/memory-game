@@ -1,17 +1,29 @@
 
 import React from "react";
 import Header from '../Components/Header';
+import GameBoard from '../Components/GameBoard';
+import Card from '../Components/Card';
 
 function MemoryGame() {
-    // State current score, best score and the card array
+
+    const numberOfImages = 12;
+    let images = [];
+    for(let i=0; i<numberOfImages; i++){
+        let imageUrl = i+1;
+        let card = {url: "../Images/"+imageUrl+".jpg"};
+        images.push(card);
+    }
+
     const [game, setGame] = React.useState({
         currentScore: 0,
         bestScore: 0,
-        cards: []
-    })
+        cards: images
+    });
+
   return (
     <>
       <Header currentScore={game.currentScore} bestScore={game.bestScore}/>
+      <GameBoard cards={game.cards}/>
     </>
   );
 }
