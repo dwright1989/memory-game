@@ -48,6 +48,7 @@ function MemoryGame() {
         });
         if(cardObject[0].hasBeenClicked){
             console.log("the game has ended");
+            resetGame();
         }else{
             const newCards = game.cards.map((card)=>{
                 if(card.name===name){
@@ -55,12 +56,24 @@ function MemoryGame() {
                 }
                 return card;
             });
+            let newBestScore = game.bestScore;
+            if(game.currentScore+1>newBestScore){
+                newBestScore = game.currentScore+1;
+            }
             setGame(prevGame => ({
-                ...prevGame,
+                bestScore: newBestScore,
                 currentScore: prevGame.currentScore+1,
                 cards: newCards
             }))
         }
+    }
+
+    function resetGame(){
+        setGame(prevGame => ({
+            ...prevGame,
+            currentScore: 0,
+            cards: images
+        }))
     }
 
   return (
