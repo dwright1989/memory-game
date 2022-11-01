@@ -41,7 +41,10 @@ function MemoryGame() {
         cards: images
     });
 
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [modal, setModal] = React.useState({
+        open: false,
+        modalMessage: ""
+    })
 
 
     function handleCardClick(name){
@@ -49,7 +52,10 @@ function MemoryGame() {
             return obj.name===name;
         });
         if(cardObject[0].hasBeenClicked){
-            setIsOpen(true);
+            setModal({
+                open: true,
+                modalMessage: "Oh No! You've already clicked that card.  GAME OVER."
+            })
             resetGame();
         }else{
             const newCards = game.cards.map((card)=>{
@@ -78,20 +84,42 @@ function MemoryGame() {
         }))
     }
 
-    useEffect(() =>{
-            let newCardsArray = game.cards;
+    function shuffle(){
+        let newCardsArray = game.cards;
             newCardsArray.sort(()=>Math.random()-0.5);
             setGame(prevGame=>({
                 ...prevGame,
                 cards: newCardsArray
-            }))
+        }))
+    }
+
+    function win(){
+        setModal({
+            open: true,
+            modalMessage: "WOW! You've beat the game. Well Done."
+        })
+        resetGame();
+    }
+
+    useEffect(() =>{
+            shuffle();
+            let allClicked = true;
+            for(let i=0; i<game.cards.length; i++){
+                if(!game.cards[i].hasBeenClicked){
+                    allClicked = false;
+                    break;
+                }
+            }
+            if(allClicked){
+                win();
+            }           
     },[game.currentScore]);
 
   return (
     <>
       <Header currentScore={game.currentScore} bestScore={game.bestScore}/>
       <GameBoard cards={game.cards} handleCardClick={handleCardClick}/>
-      <Modal open={isOpen} onClose={() => setIsOpen(false)}>Oh No! You've already clicked that card.  GAME OVER.</Modal>
+      <Modal open={modal.open} onClose={() => setModal(prevModal=>({...prevModal, open:false}))}>{modal.modalMessage}</Modal>
     </>
   );
 }
