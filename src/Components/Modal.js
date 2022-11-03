@@ -1,12 +1,12 @@
 import React from "react"
 import ReactDom from 'react-dom'
+import '../App.css';
 
 const MODAL_STYLE={
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: '#FFF',
     padding: '50px',
     zIndex: 1000
 }
@@ -28,9 +28,9 @@ export default function Modal({open, children, onClose}){
     return ReactDom.createPortal(
         <>
         <div style={OVERLAY_STYLE}/>
-            <div style={MODAL_STYLE}>
+            <div style={MODAL_STYLE} id="modal">
                 {children}
-                <button onClick={onClose}>Close</button>
+                <button onClick={onClose}>Reset</button>
             </div>
         </>, document.getElementById('portal')
     )
