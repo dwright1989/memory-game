@@ -1,3 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+
+*{
+  font-family: 'Bubblegum Sans', cursive;
+  padding: 0;
+  margin: 0;
+  background-color: var(--main-color);
+}
+
+:root{
+  --main-color: #A59CD3;
+  --secondary-color: #E3C515;
+  --tertiary-color: #EE51b1;
+  --additional-color: #4B2D9F;
+}
+
+/*#HEADER*/
+
+#header{
+  text-align: center;
+  font-size: 1vw;
+
+
+}
+
+#header>h1{
+  font-size: 4vw;
+  padding: 2vw 0vw 1vw 0vw;
+  color: var(--additional-color);
+}
+
+#score{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 1vw;
+  gap: 1rem;
+  font-size: 1.5vw;
+}
+
+#currentScore{
+  justify-self: end;
+}
+
+#bestScore{
+  justify-self: start;
+}
+
+/*GAMEBOARD*/
+
 .card>img{
   width: 10vw;
   height: 10vw;
@@ -7,4 +56,8 @@
 #gameBoard{
   display:grid;
   grid-template-columns: repeat(4,1fr);
+  justify-items: center;
+  margin: auto;
+  width: 70%;
+  gap: 1rem;
 }
