@@ -85,7 +85,7 @@ function MemoryGame() {
     }
 
     function shuffle(){
-        let newCardsArray = game.cards;
+        let newCardsArray = [...game.cards];
             newCardsArray.sort(()=>Math.random()-0.5);
             setGame(prevGame=>({
                 ...prevGame,
